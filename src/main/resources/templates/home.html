@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="/fragments/head :: head"></th:block>
+<body>
+<th:block th:replace="/fragments/navbar :: nav"></th:block>
+<div class="container-fluid px-0 mb-3">
+    <img alt="Banner" class="banner-img" th:src="@{/images/bannerimage.jpeg}">
+</div>
+
+<div class="container row mx-auto justify-content-around mb-3">
+    <div class="card col-lg-4 my-3" style="width: 18rem;">
+        <img alt="..." class="card-img-top" th:src="@{/images/card-img.webp}">
+        <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+        </div>
+    </div>
+
+    <div class="card col-lg-4 my-3" style="width: 18rem;">
+        <img alt="..." class="card-img-top" th:src="@{/images/card-img.webp}">
+        <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+        </div>
+    </div>
+
+    <div class="card col-lg-4 my-3" style="width: 18rem;">
+        <img alt="..." class="card-img-top" th:src="@{/images/card-img.webp}">
+        <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
