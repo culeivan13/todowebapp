@@ -6,6 +6,8 @@ import com.suraj.todo.todowebapp.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +20,8 @@ public class TodoController {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/home")
     public String getHomePage(Model model) {
@@ -44,7 +48,7 @@ public class TodoController {
             User user = new User();
             user.setName(signUpDao.getName());
             user.setEmail(signUpDao.getEmail());
-            user.setPassword(signUpDao.getPassword());
+            user.setPassword(bCryptPasswordEncoder.encode(signUpDao.getPassword()));
             user.setRole("ROLE_USER");
 
             try {
@@ -63,5 +67,11 @@ public class TodoController {
             }
         }
         return "signup";
+    }
+
+    @GetMapping("/login")
+    public String getLoginPage(Model model) {
+        model.addAttribute("title", "Login here");
+        return "login";
     }
 }
