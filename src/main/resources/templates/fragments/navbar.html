@@ -9,12 +9,15 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav text-uppercase ms-auto">
                 <li class="nav-item">
-                    <a aria-current="page" class="nav-link active" th:href="@{/home}">Home</a>
+                    <a aria-current="page" class="nav-link active" th:href="${isLoggedIn} ? @{/user/home} : @{/home}">Home</a>
                 </li>
-                    <a class="nav-link active" th:href="@{/signup}">Signup</a>
+                <a class="nav-link active" th:if="${!isLoggedIn}" th:href="@{/signup}">Signup</a>
                 </li>
                 <li class="nav-item login">
-                    <a class="nav-link active" th:href="@{/login}">Login</a>
+                    <a class="nav-link active" th:if="${!isLoggedIn}" th:href="@{/login}">Login</a>
+                </li>
+                <li class="nav-item login">
+                    <a class="nav-link active" th:if="${isLoggedIn}" th:href="@{/logout}">Logout</a>
                 </li>
             </ul>
         </div>

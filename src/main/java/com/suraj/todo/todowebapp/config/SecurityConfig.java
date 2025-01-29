@@ -27,8 +27,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
-                .formLogin(form -> form.loginPage("/login"))
-                .authorizeHttpRequests(req -> req.requestMatchers("/home").hasRole("USER"))
+                .formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/user/home"))
+                .authorizeHttpRequests(req -> req.requestMatchers("/user/**").hasRole("USER"))
                 .authorizeHttpRequests(req -> req.anyRequest().permitAll())
                 .httpBasic(Customizer.withDefaults());
 

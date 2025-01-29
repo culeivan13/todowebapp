@@ -6,7 +6,8 @@ import com.suraj.todo.todowebapp.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class TodoController {
+public class HomeController {
 
     @Autowired
     private UserRepository userRepository;
@@ -25,6 +26,8 @@ public class TodoController {
 
     @GetMapping("/home")
     public String getHomePage(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(authentication.getPrincipal());
         model.addAttribute("title", "Home Page");
         return "home";
     }
