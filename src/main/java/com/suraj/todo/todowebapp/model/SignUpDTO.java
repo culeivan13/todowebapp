@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public class SignUpDao {
+public class SignUpDTO {
     @NotBlank(message = "Name cannot be blank!")
     @Size(min = 3, max = 15, message = "Name must be 3-15 characters long!")
     private String name;
@@ -18,10 +18,10 @@ public class SignUpDao {
     @AssertTrue(message = "You must agree to terms and conditions!")
     private boolean agreed;
 
-    public SignUpDao() {
+    public SignUpDTO() {
     }
 
-    public SignUpDao(String name, String email, String password, boolean agreed) {
+    public SignUpDTO(String name, String email, String password, boolean agreed) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -62,7 +62,7 @@ public class SignUpDao {
 
     @Override
     public String toString() {
-        return "SignUpDao{" +
+        return "SignUpDTO{" +
                 "name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +

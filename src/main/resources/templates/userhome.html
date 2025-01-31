@@ -3,6 +3,80 @@
 <th:block th:replace="~{/fragments/head :: head}"></th:block>
 <body>
 <th:block th:replace="~{/fragments/navbar :: nav}"></th:block>
-<h1>Welcome to User Home Page!</h1>
+
+<div class="container">
+    <div class="fs-1 mt-2">Welcome <span th:text="${loggedInUser}"></span> to your Dashboard!</div>
+
+    <p class="d-inline-flex gap-1 mt-3">
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                aria-expanded="false" aria-controls="collapseExample">
+            Add Task
+        </button>
+    </p>
+    <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+            <form th:action="@{/user/process-todo}" method="post" th:object="${newtodo}">
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Title"
+                           th:value="${newtodo.title}">
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="description" name="description"
+                           placeholder="Description" th:value="${newtodo.description}">
+                </div>
+                <div class="form-floating mb-3">
+                    <select class="form-select" name="priority" id="prioritySelect">
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low" selected>Low</option>
+                    </select>
+                    <label for="prioritySelect">Priority</label>
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="dueDate" name="dueDate" placeholder="Due"
+                           th:value="${newtodo.dueDate}">
+                </div>
+                <button type="submit" class="btn btn-primary me-3">Add</button>
+                <button type="reset" class="btn btn-warning">Reset</button>
+            </form>
+        </div>
+    </div>
+
+    <table class="table table-bordered mt-3">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col" colspan="2">Tasks</th>
+            <th scope="col">Priority</th>
+            <th scope="col">Due</th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider">
+        <tr th:each="task : ${tasks}" th:classappend="${task.priority == 'High' ? 'table-danger' : ''}">
+            <td><input type="checkbox" name="completed" id="completed"
+                       th:checked="${task.isCompleted}"></td>
+            <td colspan="2">
+                <div th:text="${task.title}" th:classappend="${task.isCompleted ? 'completed' : ''}"></div>
+                <hr>
+                <div th:text="${task.description}"></div>
+            </td>
+            <td th:text="${task.priority}"></td>
+            <td th:text="${#temporals.format(task.dueDate, 'dd-MM-yyyy HH:mm')}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    let due = document.getElementById("dueDate")
+    due.onfocus = function (event) {
+        this.type = 'datetime-local';
+        this.focus();
+    }
+
+    due.onblur = function (event) {
+        this.type = 'text';
+    }
+</script>
 </body>
 </html>

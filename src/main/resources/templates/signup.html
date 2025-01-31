@@ -6,7 +6,7 @@
 <div class="container">
     <form class="row justify-content-center form mx-auto mt-3 p-3 needs-validation" method="post"
           th:action="@{/process}"
-          th:object="${signupdao}" novalidate>
+          th:object="${signupdto}" novalidate>
         <div class="fs-1 text-center">Signup Here!</div>
         <div class="alert alert-danger text-center col-md-6 p-1 mt-2" role="alert" th:if="${error}" th:text="${errorMsg}"
         >
@@ -17,24 +17,24 @@
         <div class="mb-3 col-md-8">
             <label class="form-label" for="name">Full Name</label>
             <input class="form-control" th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}"
-                   id="name" name="name" th:value="${signupdao.name}" type="text">
+                   id="name" name="name" th:value="${signupdto.name}" type="text">
             <div th:each="e: ${#fields.errors('name')}" class="invalid-feedback" th:text="${e}"></div>
         </div>
         <div class="mb-3 col-md-8">
             <label class="form-label" for="email">Email</label>
             <input class="form-control" th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}"
-                   id="email" name="email" th:value="${signupdao.email}" type="email">
+                   id="email" name="email" th:value="${signupdto.email}" type="email">
             <div th:each="e: ${#fields.errors('email')}" class="invalid-feedback" th:text="${e}"></div>
         </div>
         <div class="mb-3 col-md-8">
             <label class="form-label" for="password">Password</label>
             <input class="form-control" th:classappend="${#fields.hasErrors('password') ? 'is-invalid' : ''}"
-                   id="password" name="password" th:value="${signupdao.password}" type="password">
+                   id="password" name="password" th:value="${signupdto.password}" type="password">
             <div th:each="e: ${#fields.errors('password')}" class="invalid-feedback" th:text="${e}"></div>
         </div>
         <div class="form-check mb-3 col-md-8 ms-4">
             <input class="form-check-input" th:classappend="${#fields.hasErrors('agreed') ? 'is-invalid' : ''}"
-                   id="agreed" name="agreed" th:checked="${signupdao.agreed}" type="checkbox">
+                   id="agreed" name="agreed" th:checked="${signupdto.agreed}" type="checkbox">
             <label class="form-check-label" for="agreed">
                 Agree to terms and conditions
             </label>

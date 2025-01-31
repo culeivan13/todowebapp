@@ -2,6 +2,8 @@ package com.suraj.todo.todowebapp.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "todo")
 public class ToDo {
@@ -9,12 +11,23 @@ public class ToDo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int todoId;
     private String title;
+    private String description;
     private boolean isCompleted;
     private String priority;
+    private LocalDateTime dueDate;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    public ToDo(int todoId, String title, String description, boolean isCompleted, String priority, LocalDateTime dueDate) {
+        this.todoId = todoId;
+        this.title = title;
+        this.description = description;
+        this.isCompleted = isCompleted;
+        this.priority = priority;
+        this.dueDate = dueDate;
+    }
 
     public int getTodoId() {
         return todoId;
@@ -54,5 +67,21 @@ public class ToDo {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDateTime getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDateTime dueDate) {
+        this.dueDate = dueDate;
     }
 }
