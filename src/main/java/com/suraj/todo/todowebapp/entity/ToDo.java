@@ -20,6 +20,9 @@ public class ToDo {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    public ToDo() {
+    }
+
     public ToDo(int todoId, String title, String description, boolean isCompleted, String priority, LocalDateTime dueDate) {
         this.todoId = todoId;
         this.title = title;
@@ -83,5 +86,17 @@ public class ToDo {
 
     public void setDueDate(LocalDateTime dueDate) {
         this.dueDate = dueDate;
+    }
+
+    @Override
+    public String toString() {
+        return "ToDo{" +
+                "todoId=" + todoId +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", isCompleted=" + isCompleted +
+                ", priority='" + priority + '\'' +
+                ", dueDate=" + dueDate +
+                '}';
     }
 }

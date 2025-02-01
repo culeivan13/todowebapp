@@ -17,7 +17,7 @@ public class GlobalModelAttribute {
     private UserRepository userRepository;
 
     @ModelAttribute
-    public void setIsLoggedIn(Model model) {
+    public void setIsLoggedIn(Model model, HttpServletRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         boolean isLoggedIn = authentication != null &&
@@ -32,5 +32,6 @@ public class GlobalModelAttribute {
         }
 
         model.addAttribute("isLoggedIn", isLoggedIn);
+        request.setAttribute("loggedInUserObj", user);
     }
 }

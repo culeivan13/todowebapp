@@ -13,16 +13,22 @@
             Add Task
         </button>
     </p>
-    <div class="collapse" id="collapseExample">
+    <div class="collapse" th:classappend="${unsuccess ? 'show' : ''}" id="collapseExample">
         <div class="card card-body">
             <form th:action="@{/user/process-todo}" method="post" th:object="${newtodo}">
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="title" name="title" placeholder="Title"
+                    <input type="text" class="form-control"
+                           th:classappend="${#fields.hasErrors('title') ? 'is-invalid' : ''}" id="title" name="title"
+                           placeholder="Title"
                            th:value="${newtodo.title}">
+                    <div th:each="e: ${#fields.errors('title')}" class="invalid-feedback" th:text="${e}"></div>
                 </div>
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="description" name="description"
+                    <input type="text" class="form-control"
+                           th:classappend="${#fields.hasErrors('description') ? 'is-invalid' : ''}" id="description"
+                           name="description"
                            placeholder="Description" th:value="${newtodo.description}">
+                    <div th:each="e: ${#fields.errors('description')}" class="invalid-feedback" th:text="${e}"></div>
                 </div>
                 <div class="form-floating mb-3">
                     <select class="form-select" name="priority" id="prioritySelect">
@@ -33,8 +39,11 @@
                     <label for="prioritySelect">Priority</label>
                 </div>
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="dueDate" name="dueDate" placeholder="Due"
+                    <input type="text" class="form-control"
+                           th:classappend="${#fields.hasErrors('dueDate') ? 'is-invalid' : ''}" id="dueDate"
+                           name="dueDate" placeholder="Due"
                            th:value="${newtodo.dueDate}">
+                    <div th:each="e: ${#fields.errors('dueDate')}" class="invalid-feedback" th:text="${e}"></div>
                 </div>
                 <button type="submit" class="btn btn-primary me-3">Add</button>
                 <button type="reset" class="btn btn-warning">Reset</button>

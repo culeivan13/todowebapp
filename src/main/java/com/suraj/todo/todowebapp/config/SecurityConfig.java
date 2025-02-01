@@ -28,7 +28,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/user/home"))
-//                .authorizeHttpRequests(req -> req.requestMatchers("/user/**").hasRole("USER"))
+                .authorizeHttpRequests(req -> req.requestMatchers("/user/**").hasRole("USER"))
                 .authorizeHttpRequests(req -> req.anyRequest().permitAll())
                 .httpBasic(Customizer.withDefaults());
 
