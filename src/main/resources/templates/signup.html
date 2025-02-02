@@ -8,7 +8,8 @@
           th:action="@{/process}"
           th:object="${signupdto}" novalidate>
         <div class="fs-1 text-center">Signup Here!</div>
-        <div class="alert alert-danger text-center col-md-6 p-1 mt-2" role="alert" th:if="${error}" th:text="${errorMsg}"
+        <div class="alert alert-danger text-center col-md-6 p-1 mt-2" role="alert" th:if="${error}"
+             th:text="${errorMsg}"
         >
         </div>
         <div class="alert alert-success text-center col-md-6 p-1 mt-2" role="alert" th:if="${success}"

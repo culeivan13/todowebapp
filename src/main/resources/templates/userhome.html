@@ -46,7 +46,6 @@
                     <div th:each="e: ${#fields.errors('dueDate')}" class="invalid-feedback" th:text="${e}"></div>
                 </div>
                 <button type="submit" class="btn btn-primary me-3">Add</button>
-                <button type="reset" class="btn btn-warning">Reset</button>
             </form>
         </div>
     </div>
@@ -54,23 +53,29 @@
     <table class="table table-bordered mt-3">
         <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col" colspan="2">Tasks</th>
+            <th scope="col">Tasks</th>
             <th scope="col">Priority</th>
             <th scope="col">Due</th>
+            <th scope="col">Action</th>
         </tr>
         </thead>
         <tbody class="table-group-divider">
         <tr th:each="task : ${tasks}" th:classappend="${task.priority == 'High' ? 'table-danger' : ''}">
-            <td><input type="checkbox" name="completed" id="completed"
-                       th:checked="${task.isCompleted}"></td>
-            <td colspan="2">
+            <td>
                 <div th:text="${task.title}" th:classappend="${task.isCompleted ? 'completed' : ''}"></div>
                 <hr>
                 <div th:text="${task.description}"></div>
             </td>
             <td th:text="${task.priority}"></td>
             <td th:text="${#temporals.format(task.dueDate, 'dd-MM-yyyy HH:mm')}"></td>
+            <td>
+                <button class="btn btn-primary"><i class="bi bi-pencil"></i> Edit</button>
+                <button class="btn btn-danger"><i class="bi bi-trash"></i> Delete</button>
+                <button class="btn btn-warning">
+                    <i class="bi " th:classappend="${task.isCompleted ? 'bi-ban' : 'bi-check-circle'}"></i>
+                    <span th:text="${task.isCompleted} ? 'Undo' : 'Done'"></span>
+                </button>
+            </td>
         </tr>
         </tbody>
     </table>

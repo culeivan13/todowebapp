@@ -21,13 +21,9 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @GetMapping("/home")
-    public String getUserHomePage(Model model, HttpServletRequest request) {
-        model.addAttribute("title", "User Home Page");
-
+    @ModelAttribute
+    public void getUserTasks(Model model, HttpServletRequest request) {
+        // Binding tasks to user home page which will always show it
         // Fetching currently logged in user
         User loggedInUser = (User) request.getAttribute("loggedInUserObj");
 
@@ -36,7 +32,14 @@ public class UserController {
             List<ToDo> tasks = loggedInUser.getTasks();
             model.addAttribute("tasks", tasks);
         }
+    }
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @GetMapping("/home")
+    public String getUserHomePage(Model model) {
+        model.addAttribute("title", "User Home Page");
         model.addAttribute("unsuccess", false);
         model.addAttribute("newtodo", new NewTodoDTO());
         return "userhome";
