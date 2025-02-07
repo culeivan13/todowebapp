@@ -46,4 +46,20 @@
     .card.card-body {
         width: 100%;
     }
+
+    .delete-btn, .do-undo-btn {
+        margin-top: 8px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .do-undo-btn {
+        margin-top: 8px;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .bi {
+        display: none;
+    }
 }

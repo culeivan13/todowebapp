@@ -27,7 +27,7 @@ public class GlobalModelAttribute {
         String email = authentication.getName();
         User user = userRepository.findUserByEmail(email);
         if (user != null) {
-            System.out.println("Logged in user: " + user.getName());
+//            System.out.println("Logged in user: " + user.getName());
             model.addAttribute("loggedInUser", user.getName());
         }
 
