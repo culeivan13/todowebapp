@@ -3,6 +3,8 @@ package com.suraj.todo.todowebapp.controller;
 import com.suraj.todo.todowebapp.entity.ToDo;
 import com.suraj.todo.todowebapp.repository.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,11 +15,16 @@ public class TodoController {
     @Autowired
     private TodoRepository todoRepository;
 
-    @PostMapping("/delete/{id}")
-    public String deleteTodo(@PathVariable("id") int id) {
-        System.out.println("Deleting todo with id: " + id);
-        todoRepository.deleteById(id);
-        return "redirect:/user/home";
+    @DeleteMapping("/delete/{id}")
+    @ResponseBody
+    public ResponseEntity<String> deleteTodo(@PathVariable("id") int id) {
+        try {
+//            System.out.println("Deleting todo with id: " + id);
+            todoRepository.deleteById(id);
+            return new ResponseEntity<>("Task deleted!", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Failed to delete task!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping("/done/{id}")

@@ -71,12 +71,9 @@
             <td>
                 <button class="btn btn-primary"><i class="bi bi-pencil"></i> Edit</button>
 
-                <form th:action="@{/todo/delete/{id}(id=${task.todoId})}" method="post"
-                      style="display: inline;">
-                    <button class="btn btn-danger delete-btn">
-                        <i class="bi bi-trash"></i> Delete
-                    </button>
-                </form>
+                <button class="btn btn-danger delete-btn" th:onclick="handleDelete([[${task.todoId}]])">
+                    <i class="bi bi-trash"></i> Delete
+                </button>
 
                 <form th:action="@{/todo/done/{id}(id=${task.todoId})}" method="post"
                       style="display: inline;">
@@ -90,6 +87,7 @@
         </tbody>
     </table>
 </div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script th:src="@{/js/script.js}"></script>
 </body>
 </html>
