@@ -5,7 +5,7 @@
 <th:block th:replace="~{/fragments/navbar :: nav}"></th:block>
 <div class="container">
     <div class="row justify-content-center">
-        <form th:action="@{/login}" method="post" class="p-3 mt-4 login-form col-md-6">
+        <form th:action="@{/login}" method="post" class="p-3 mt-4 col-md-6">
             <div class="fs-1 text-center">Please Log In!</div>
             <div class="row justify-content-center">
                 <div th:if="${param.error}" class="alert alert-danger text-center px-3 py-1 col-auto mt-2">

@@ -8,14 +8,13 @@
     <div class="fs-1 mt-2">Welcome <span th:text="${loggedInUser}"></span> to your Dashboard!</div>
 
     <p class="d-inline-flex gap-1 mt-3">
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
-                aria-expanded="false" aria-controls="collapseExample">
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#addTaskCollapse">
             Add Task
         </button>
     </p>
-    <div class="collapse" th:classappend="${unsuccess ? 'show' : ''}" id="collapseExample">
+    <div class="collapse" th:classappend="${showTodoForm ? 'show' : ''}" id="addTaskCollapse">
         <div class="card card-body">
-            <form th:action="@{/user/process-todo}" method="post" th:object="${newtodo}">
+            <form th:action="@{/user/process-todo}" method="post" th:object="${newtodo}" class="p-3">
                 <div class="mb-3">
                     <input type="text" class="form-control"
                            th:classappend="${#fields.hasErrors('title') ? 'is-invalid' : ''}" id="title" name="title"
@@ -50,6 +49,7 @@
         </div>
     </div>
 
+    <!--    table showing the todos-->
     <table class="table table-bordered mt-3">
         <thead>
         <tr>
@@ -67,10 +67,13 @@
                 <div th:text="${task.description}"></div>
             </td>
             <td th:text="${task.priority}"></td>
-            <td th:text="${#temporals.format(task.dueDate, 'dd-MM-yyyy HH:mm')}"></td>
+            <td th:text="${#temporals.format(task.dueDate, 'dd-MM-yy HH:mm')}"></td>
             <td>
-                <button class="btn btn-primary"><i class="bi bi-pencil"></i> Edit</button>
-
+                <form th:action="@{/todo/edit/{id}(id=${task.todoId})}" method="post"
+                      style="display: inline;">
+                    <button class="btn btn-primary"><i class="bi bi-pencil"></i> Edit
+                    </button>
+                </form>
                 <button class="btn btn-danger delete-btn" th:onclick="handleDelete([[${task.todoId}]])">
                     <i class="bi bi-trash"></i> Delete
                 </button>

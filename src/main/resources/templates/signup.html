@@ -4,7 +4,7 @@
 <body>
 <th:block th:replace="~{/fragments/navbar :: nav}"></th:block>
 <div class="container">
-    <form class="row justify-content-center form mx-auto mt-3 p-3 needs-validation" method="post"
+    <form class="row justify-content-center signup-form mx-auto mt-3 p-3 needs-validation" method="post"
           th:action="@{/process}"
           th:object="${signupdto}" novalidate>
         <div class="fs-1 text-center">Signup Here!</div>

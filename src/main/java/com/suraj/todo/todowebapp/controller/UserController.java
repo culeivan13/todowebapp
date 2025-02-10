@@ -3,6 +3,7 @@ package com.suraj.todo.todowebapp.controller;
 import com.suraj.todo.todowebapp.entity.ToDo;
 import com.suraj.todo.todowebapp.entity.User;
 import com.suraj.todo.todowebapp.model.NewTodoDTO;
+import com.suraj.todo.todowebapp.repository.TodoRepository;
 import com.suraj.todo.todowebapp.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -10,16 +11,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private TodoRepository todoRepository;
 
     @ModelAttribute
     public void getUserTasks(Model model, HttpServletRequest request) {
@@ -32,19 +36,18 @@ public class UserController {
             List<ToDo> tasks = loggedInUser.getTasks();
             model.addAttribute("tasks", tasks);
         }
-    }
 
-    @Autowired
-    private UserRepository userRepository;
+        model.addAttribute("title", "User Home Page");
+    }
 
     @GetMapping("/home")
     public String getUserHomePage(Model model) {
-        model.addAttribute("title", "User Home Page");
-        model.addAttribute("unsuccess", false);
+        model.addAttribute("showTodoForm", false);
         model.addAttribute("newtodo", new NewTodoDTO());
         return "userhome";
     }
 
+    // Add a new todo
     @PostMapping("/process-todo")
     public String processNewTodo(@Valid @ModelAttribute("newtodo") NewTodoDTO newTodoDTO,
                                  BindingResult bindingResult,
@@ -56,7 +59,7 @@ public class UserController {
         // Handling form validation
         if (bindingResult.hasErrors()) {
             System.out.println("error -->" + bindingResult);
-            model.addAttribute("unsuccess", true);
+            model.addAttribute("showTodoForm", true);
             model.addAttribute("newtodo", newTodoDTO);
             return "userhome";
         }
