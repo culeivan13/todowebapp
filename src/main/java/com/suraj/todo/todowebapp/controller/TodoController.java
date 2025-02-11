@@ -50,7 +50,7 @@ public class TodoController {
     // Open edit todo form
     @PostMapping("/edit/{id}")
     public String editTodo(@PathVariable("id") int id, Model model, HttpServletRequest request) {
-        System.out.println("Editing todo with id: " + id);
+//        System.out.println("Editing todo with id: " + id);
 
         // Finding the todo
         ToDo todo = todoRepository.findById(id).get();
@@ -67,6 +67,7 @@ public class TodoController {
         // Binding the values from existing todo to newTodoDTO
         newTodoDTO.setTitle(todo.getTitle());
         newTodoDTO.setDescription(todo.getDescription());
+        newTodoDTO.setPriority(todo.getPriority());
         newTodoDTO.setDueDate(todo.getDueDate());
 
         model.addAttribute("newtodo", newTodoDTO);

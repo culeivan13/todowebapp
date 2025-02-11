@@ -22,7 +22,7 @@ public class HomeController {
     @Autowired
     private PasswordEncoder bCryptPasswordEncoder;
 
-    @GetMapping("/home")
+    @GetMapping("/")
     public String getHomePage(Model model) {
         model.addAttribute("title", "Home Page");
         return "home";

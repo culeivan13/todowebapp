@@ -4,8 +4,11 @@
 <body>
 <th:block th:replace="~{/fragments/navbar :: nav}"></th:block>
 <div class="container">
+    <!--    Edit form-->
     <form th:action="@{'/todo/process-edit-todo/' + ${todoId}}" method="post" th:object="${newtodo}" class="mt-3 p-3">
         <div class="fs-1 text-center mb-2">Edit Task!</div>
+
+        <!--        Title-->
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
             <input type="text" class="form-control"
@@ -13,6 +16,8 @@
                    th:value="${newtodo.title}">
             <div th:each="e: ${#fields.errors('title')}" class="invalid-feedback" th:text="${e}"></div>
         </div>
+
+        <!--        Description-->
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>
             <input type="text" class="form-control"
@@ -20,14 +25,18 @@
                    name="description" th:value="${newtodo.description}">
             <div th:each="e: ${#fields.errors('description')}" class="invalid-feedback" th:text="${e}"></div>
         </div>
+
+        <!--        Priority-->
         <div class="form-floating mb-3">
             <select class="form-select" name="priority" id="prioritySelect">
-                <option value="High">High</option>
-                <option value="Medium">Medium</option>
-                <option value="Low" selected>Low</option>
+                <option value="High" th:selected="${newtodo.priority == 'High'}">High</option>
+                <option value="Medium" th:selected="${newtodo.priority == 'Medium'}">Medium</option>
+                <option value="Low" th:selected="${newtodo.priority == 'Low'}">Low</option>
             </select>
             <label for="prioritySelect">Priority</label>
         </div>
+
+        <!--        Due Date-->
         <div class="mb-3">
             <label for="dueDate" class="form-label">Due Date</label>
             <input type="datetime-local" class="form-control"
@@ -36,8 +45,14 @@
                    th:value="${newtodo.dueDate}">
             <div th:each="e: ${#fields.errors('dueDate')}" class="invalid-feedback" th:text="${e}"></div>
         </div>
-        <button type="submit" class="btn btn-primary me-3"><i class="bi bi-pencil"></i> Edit</button>
+
+        <!--        Buttons-->
+        <button type="button" class="btn btn-warning me-3" onclick="goHome()"><i class="bi bi-arrow-left-circle"></i>
+            Back
+        </button>
+        <button type="submit" class="btn btn-primary"><i class="bi bi-pencil"></i> Edit</button>
     </form>
 </div>
+<script th:src="@{/js/script.js}"></script>
 </body>
 </html>

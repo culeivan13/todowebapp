@@ -1,3 +1,20 @@
+// Home button handler
+let homeButton = (isLoggedIn) => {
+    if(isLoggedIn) window.location.href = "/user/home";
+    else window.location.href = "/signup";
+}
+
+// Go to Home Page Handler
+let goHome = () => {
+    window.location.href = "/user/home";
+}
+
+// Go to Login Page Handler
+let goLoginPage = () => {
+    window.location.href = "/login";
+}
+
+// Due Date field on focus and on blur handler
 let due = document.getElementById("dueDate")
 due.onfocus = function (event) {
     this.type = 'datetime-local';
@@ -8,7 +25,7 @@ due.onblur = function (event) {
     this.type = 'text';
 }
 
-// delete functionality
+// Delete functionality
 let handleDelete = (id) => {
     swal({
         title: "Are you sure?",

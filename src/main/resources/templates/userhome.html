@@ -14,7 +14,10 @@
     </p>
     <div class="collapse" th:classappend="${showTodoForm ? 'show' : ''}" id="addTaskCollapse">
         <div class="card card-body">
+            <!--            Add task form-->
             <form th:action="@{/user/process-todo}" method="post" th:object="${newtodo}" class="p-3">
+
+                <!--                Title-->
                 <div class="mb-3">
                     <input type="text" class="form-control"
                            th:classappend="${#fields.hasErrors('title') ? 'is-invalid' : ''}" id="title" name="title"
@@ -22,6 +25,8 @@
                            th:value="${newtodo.title}">
                     <div th:each="e: ${#fields.errors('title')}" class="invalid-feedback" th:text="${e}"></div>
                 </div>
+
+                <!--                Description-->
                 <div class="mb-3">
                     <input type="text" class="form-control"
                            th:classappend="${#fields.hasErrors('description') ? 'is-invalid' : ''}" id="description"
@@ -29,6 +34,8 @@
                            placeholder="Description" th:value="${newtodo.description}">
                     <div th:each="e: ${#fields.errors('description')}" class="invalid-feedback" th:text="${e}"></div>
                 </div>
+
+                <!--                Priority-->
                 <div class="form-floating mb-3">
                     <select class="form-select" name="priority" id="prioritySelect">
                         <option value="High">High</option>
@@ -37,6 +44,8 @@
                     </select>
                     <label for="prioritySelect">Priority</label>
                 </div>
+
+                <!--                Due Date-->
                 <div class="mb-3">
                     <input type="text" class="form-control"
                            th:classappend="${#fields.hasErrors('dueDate') ? 'is-invalid' : ''}" id="dueDate"
@@ -44,12 +53,14 @@
                            th:value="${newtodo.dueDate}">
                     <div th:each="e: ${#fields.errors('dueDate')}" class="invalid-feedback" th:text="${e}"></div>
                 </div>
+
+                <!--                Submit-->
                 <button type="submit" class="btn btn-primary me-3"><i class="bi bi-plus-circle"></i> Add</button>
             </form>
         </div>
     </div>
 
-    <!--    table showing the todos-->
+    <!--    Table showing the todos-->
     <table class="table table-bordered mt-3">
         <thead>
         <tr>
@@ -68,16 +79,23 @@
             </td>
             <td th:text="${task.priority}"></td>
             <td th:text="${#temporals.format(task.dueDate, 'dd-MM-yy HH:mm')}"></td>
+
+            <!--            Action buttons-->
             <td>
+
+                <!--                Edit button-->
                 <form th:action="@{/todo/edit/{id}(id=${task.todoId})}" method="post"
                       style="display: inline;">
                     <button class="btn btn-primary"><i class="bi bi-pencil"></i> Edit
                     </button>
                 </form>
+
+                <!--                Delete button-->
                 <button class="btn btn-danger delete-btn" th:onclick="handleDelete([[${task.todoId}]])">
                     <i class="bi bi-trash"></i> Delete
                 </button>
 
+                <!--                Do/Undo button-->
                 <form th:action="@{/todo/done/{id}(id=${task.todoId})}" method="post"
                       style="display: inline;">
                     <button class="btn btn-warning do-undo-btn">
