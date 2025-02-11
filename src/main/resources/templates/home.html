@@ -1,8 +1,10 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<th:block th:replace="~{/fragments/head :: head}"></th:block>
+<head>
+    <th:block th:replace="~{fragments/head :: head}"></th:block>
+</head>
 <body>
-<th:block th:replace="~{/fragments/navbar :: nav}"></th:block>
+<th:block th:replace="~{fragments/navbar :: navbar}"></th:block>
 <div class="container-fluid home-page">
     <div class="text-white home-text mb-3">Think, plan, execute!</div>
     <button class="btn btn-primary home-btn" th:onclick="|homeButton(${isLoggedIn})|">Start Now!</button>
