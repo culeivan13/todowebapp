@@ -7,60 +7,12 @@
 <th:block th:replace="~{fragments/navbar :: navbar}"></th:block>
 
 <div class="container">
-    <div class="fs-1 mt-2">Welcome <span th:text="${loggedInUser}"></span> to your Dashboard!</div>
+    <div class="fs-1 my-2">Welcome <span th:text="${loggedInUser}"></span> to your Dashboard!</div>
 
-    <p class="d-inline-flex gap-1 mt-3">
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#addTaskCollapse">
-            Add Task
+    <a th:href="@{/todo/add}">
+        <button class="btn btn-primary" type="button">Add Task
         </button>
-    </p>
-    <div class="collapse" th:classappend="${showTodoForm ? 'show' : ''}" id="addTaskCollapse">
-        <div class="card card-body">
-            <!--            Add task form-->
-            <form th:action="@{/user/process-todo}" method="post" th:object="${newtodo}" class="p-3">
-
-                <!--                Title-->
-                <div class="mb-3">
-                    <input type="text" class="form-control"
-                           th:classappend="${#fields.hasErrors('title') ? 'is-invalid' : ''}" id="title" name="title"
-                           placeholder="Title"
-                           th:value="${newtodo.title}">
-                    <div th:each="e: ${#fields.errors('title')}" class="invalid-feedback" th:text="${e}"></div>
-                </div>
-
-                <!--                Description-->
-                <div class="mb-3">
-                    <input type="text" class="form-control"
-                           th:classappend="${#fields.hasErrors('description') ? 'is-invalid' : ''}" id="description"
-                           name="description"
-                           placeholder="Description" th:value="${newtodo.description}">
-                    <div th:each="e: ${#fields.errors('description')}" class="invalid-feedback" th:text="${e}"></div>
-                </div>
-
-                <!--                Priority-->
-                <div class="form-floating mb-3">
-                    <select class="form-select" name="priority" id="prioritySelect">
-                        <option value="High">High</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Low" selected>Low</option>
-                    </select>
-                    <label for="prioritySelect">Priority</label>
-                </div>
-
-                <!--                Due Date-->
-                <div class="mb-3">
-                    <input type="text" class="form-control"
-                           th:classappend="${#fields.hasErrors('dueDate') ? 'is-invalid' : ''}" id="dueDate"
-                           name="dueDate" placeholder="Due"
-                           th:value="${newtodo.dueDate}">
-                    <div th:each="e: ${#fields.errors('dueDate')}" class="invalid-feedback" th:text="${e}"></div>
-                </div>
-
-                <!--                Submit-->
-                <button type="submit" class="btn btn-primary me-3"><i class="bi bi-plus-circle"></i> Add</button>
-            </form>
-        </div>
-    </div>
+    </a>
 
     <!--    Table showing the todos-->
     <table class="table table-bordered mt-3">
@@ -109,6 +61,21 @@
         </tr>
         </tbody>
     </table>
+
+    <!-- Pagination -->
+    <nav>
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{'/user/home?pageNumber=' + ${currentPage - 1}}">Previous</a>
+            </li>
+            <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+                <a class="page-link" th:href="@{'/user/home?pageNumber=' + ${i}}" th:text="${i + 1}"></a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage == totalPages - 1  ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{'/user/home?pageNumber=' + ${currentPage + 1}}">Next</a>
+            </li>
+        </ul>
+    </nav>
 </div>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script th:src="@{/js/script.js}"></script>

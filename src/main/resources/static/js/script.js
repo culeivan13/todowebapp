@@ -14,17 +14,6 @@ let goLoginPage = () => {
     window.location.href = "/login";
 }
 
-// Due Date field on focus and on blur handler
-let due = document.getElementById("dueDate")
-due.onfocus = function (event) {
-    this.type = 'datetime-local';
-    this.focus();
-}
-
-due.onblur = function (event) {
-    this.type = 'text';
-}
-
 // Delete functionality
 let handleDelete = (id) => {
     swal({

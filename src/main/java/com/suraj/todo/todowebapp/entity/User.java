@@ -15,7 +15,6 @@ public class User {
     private String email;
     private String password;
     private String role;
-    private String imageUrl;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ToDo> tasks = new ArrayList<>();
@@ -60,14 +59,6 @@ public class User {
         this.role = role;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
     public List<ToDo> getTasks() {
         return tasks;
     }
@@ -84,7 +75,6 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
                 ", tasks=" + tasks +
                 '}';
     }
