@@ -2,6 +2,7 @@ package com.suraj.todo.todowebapp.controller;
 
 import com.suraj.todo.todowebapp.entity.ToDo;
 import com.suraj.todo.todowebapp.entity.User;
+import com.suraj.todo.todowebapp.model.EditTodoDTO;
 import com.suraj.todo.todowebapp.model.NewTodoDTO;
 import com.suraj.todo.todowebapp.repository.TodoRepository;
 import com.suraj.todo.todowebapp.repository.UserRepository;
@@ -68,15 +69,15 @@ public class TodoController {
         if (loggedInUser.getUserId() != todo.getUser().getUserId()) return "redirect:/user/home";
 
         // Creating newTodoDTO object
-        NewTodoDTO newTodoDTO = new NewTodoDTO();
+        EditTodoDTO editTodoDTO = new EditTodoDTO();
 
         // Binding the values from existing todo to newTodoDTO
-        newTodoDTO.setTitle(todo.getTitle());
-        newTodoDTO.setDescription(todo.getDescription());
-        newTodoDTO.setPriority(todo.getPriority());
-        newTodoDTO.setDueDate(todo.getDueDate());
+        editTodoDTO.setTitle(todo.getTitle());
+        editTodoDTO.setDescription(todo.getDescription());
+        editTodoDTO.setPriority(todo.getPriority());
+        editTodoDTO.setDueDate(todo.getDueDate());
 
-        model.addAttribute("newtodo", newTodoDTO);
+        model.addAttribute("edittodo", editTodoDTO);
         model.addAttribute("todoId", id);
 
         return "edit";
@@ -84,19 +85,19 @@ public class TodoController {
 
     // Process edit todo
     @PostMapping("/process-edit-todo/{id}")
-    public String processNewTodo(@Valid @ModelAttribute("newtodo") NewTodoDTO newTodoDTO,
+    public String processNewTodo(@Valid @ModelAttribute("edittodo") EditTodoDTO editTodoDTO,
                                  BindingResult bindingResult,
                                  Model model,
                                  @PathVariable("id") int id,
                                  HttpServletRequest request) {
 
-        System.out.println("Edited ToDo data --> " + newTodoDTO);
+        System.out.println("Edited ToDo data --> " + editTodoDTO);
 
         // Handling form validation
         if (bindingResult.hasErrors()) {
             System.out.println("error -->" + bindingResult);
             model.addAttribute("showTodoForm", true);
-            model.addAttribute("newtodo", newTodoDTO);
+            model.addAttribute("edittodo", editTodoDTO);
             model.addAttribute("todoId", id);
             return "edit";
         }
@@ -111,10 +112,10 @@ public class TodoController {
         if (loggedInUser.getUserId() != todo.getUser().getUserId()) return "redirect:/user/home";
 
         // Setting changed valued to todo and saving them
-        todo.setTitle(newTodoDTO.getTitle());
-        todo.setDescription(newTodoDTO.getDescription());
-        todo.setPriority(newTodoDTO.getPriority());
-        todo.setDueDate(newTodoDTO.getDueDate());
+        todo.setTitle(editTodoDTO.getTitle());
+        todo.setDescription(editTodoDTO.getDescription());
+        todo.setPriority(editTodoDTO.getPriority());
+        todo.setDueDate(editTodoDTO.getDueDate());
 
         todoRepository.save(todo);
 

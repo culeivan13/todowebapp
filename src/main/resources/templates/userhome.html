@@ -9,10 +9,22 @@
 <div class="container">
     <div class="fs-1 my-2">Welcome <span th:text="${loggedInUser}"></span> to your Dashboard!</div>
 
-    <a th:href="@{/todo/add}">
-        <button class="btn btn-primary" type="button">Add Task
-        </button>
-    </a>
+    <div class="row justify-content-between">
+        <!-- Add Task Button -->
+        <a th:href="@{/todo/add}">
+            <button class="btn btn-primary" type="button">Add Task
+            </button>
+        </a>
+
+        <!-- Sort By -->
+        <div>
+            <label for="sortSelect">Sort By</label>
+            <select class="form-select" name="sortBy" id="sortSelect">
+                <option value="1" selected>Due Date</option>
+                <option value="2">Priority</option>
+            </select>
+        </div>
+    </div>
 
     <!--    Table showing the todos-->
     <table class="table table-bordered mt-3">
@@ -25,13 +37,17 @@
         </tr>
         </thead>
         <tbody class="table-group-divider">
-        <tr th:each="task : ${tasks}" th:classappend="${task.priority == 'High' ? 'table-danger' : ''}">
+        <tr th:each="task : ${tasks}" th:classappend="${task.priority == 1 ? 'table-danger' : ''}">
             <td>
                 <div th:text="${task.title}" th:classappend="${task.isCompleted ? 'completed' : ''}"></div>
                 <hr>
                 <div th:text="${task.description}"></div>
             </td>
-            <td th:text="${task.priority}"></td>
+            <td th:switch="${task.priority}">
+                <span th:case="'1'">High</span>
+                <span th:case="'2'">Medium</span>
+                <span th:case="'3'">Low</span>
+            </td>
             <td th:text="${#temporals.format(task.dueDate, 'dd-MM-yy HH:mm')}"></td>
 
             <!--            Action buttons-->
@@ -63,13 +79,13 @@
     </table>
 
     <!-- Pagination -->
-    <nav>
+    <nav th:if="${totalPages > 0}">
         <ul class="pagination">
             <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
                 <a class="page-link" th:href="@{'/user/home?pageNumber=' + ${currentPage - 1}}">Previous</a>
             </li>
-            <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
-                <a class="page-link" th:href="@{'/user/home?pageNumber=' + ${i}}" th:text="${i + 1}"></a>
+            <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}">
+                <a class="page-link" th:href="@{'/user/home?pageNumber=' + ${i - 1}}" th:text="${i}"></a>
             </li>
             <li class="page-item" th:classappend="${currentPage == totalPages - 1  ? 'disabled' : ''}">
                 <a class="page-link" th:href="@{'/user/home?pageNumber=' + ${currentPage + 1}}">Next</a>

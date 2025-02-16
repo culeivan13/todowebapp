@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,9 +28,9 @@ public class TodoService {
         return tasks;
     }
 
-    public Page<ToDo> getUserTasks(User loggedInUser, int pageSize, int pageNumber) {
+    public Page<ToDo> getUserTasks(User loggedInUser, int pageSize, int pageNumber, Sort sort) {
         //Making pageable based in input
-        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
 
         // Fetching user todos
         Page<ToDo> tasks = todoRepository.findTasksByUser(loggedInUser.getUserId(), pageable);

@@ -13,7 +13,8 @@ public class ToDo {
     private String title;
     private String description;
     private boolean isCompleted;
-    private String priority;
+    private int priority;
+    @Column(name = "due_date")
     private LocalDateTime dueDate;
 
     @ManyToOne
@@ -23,7 +24,7 @@ public class ToDo {
     public ToDo() {
     }
 
-    public ToDo(int todoId, String title, String description, boolean isCompleted, String priority, LocalDateTime dueDate) {
+    public ToDo(int todoId, String title, String description, boolean isCompleted, int priority, LocalDateTime dueDate) {
         this.todoId = todoId;
         this.title = title;
         this.description = description;
@@ -56,11 +57,11 @@ public class ToDo {
         isCompleted = completed;
     }
 
-    public String getPriority() {
+    public int getPriority() {
         return priority;
     }
 
-    public void setPriority(String priority) {
+    public void setPriority(int priority) {
         this.priority = priority;
     }
 
