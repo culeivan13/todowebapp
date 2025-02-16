@@ -43,7 +43,7 @@ public class UserController {
 
         // Defining the sorting order
         Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ?
-                                            Sort.Direction.DESC : Sort.Direction.ASC;
+                Sort.Direction.DESC : Sort.Direction.ASC;
         Sort.Order order = new Sort.Order(sortDirection, sortBy);
         Sort sort = Sort.by(order);
 
@@ -51,6 +51,8 @@ public class UserController {
         model.addAttribute("tasks", tasks);
         model.addAttribute("currentPage", pageNumber);
         model.addAttribute("totalPages", tasks.getTotalPages());
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("direction", direction);
         return "userhome";
     }
 }

@@ -14,6 +14,14 @@ let goLoginPage = () => {
     window.location.href = "/login";
 }
 
+// Apply sorting handler
+let applySorting = () => {
+    const value = document.getElementById("sortSelect").value;
+    const [sortBy, direction] = value.split("-");
+    console.log(`?sortBy=${sortBy}&direction=${direction}`);
+    window.location.href = `?sortBy=${sortBy}&direction=${direction}`;
+}
+
 // Delete functionality
 let handleDelete = (id) => {
     swal({
