@@ -9,6 +9,7 @@
     <div class="text-white home-text mb-3">Think, plan, execute!</div>
     <button class="btn btn-primary home-btn" th:onclick="|homeButton(${isLoggedIn})|">Start Now!</button>
 </div>
-<script th:src="@{/js/script.js}" defer></script>
+
+<th:block th:replace="~{fragments/footer :: footer}"></th:block>
 </body>
 </html>

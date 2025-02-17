@@ -1,0 +1,19 @@
+<th:block th:fragment="footer">
+    <footer class="container-fluid footer-container bg-dark text-white text-center fs-5">
+        <div class="row flex-md-row flex-column justify-content-center align-items-center">
+            <div class="col-12 col-md-6 p-2 p-md-3 text-md-start">
+                Made by Suraj Tiwari <i class="bi bi-heart"></i>
+            </div>
+            <div class="col-12 col-md-6 p-2 p-md-3 text-md-end">
+                <a th:href="@{https://github.com/culeivan13}">
+                    Github <i class="bi bi-github"></i></a>
+                <a th:href="@{https://www.linkedin.com/in/surajtiwari13/}">
+                    LinkedIn <i class="bi bi-linkedin"></i></a>
+                <a th:href="@{https://www.instagram.com/culeivan13}">
+                    Instagram <i class="bi bi-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script th:src="@{/js/script.js}" defer></script>
+</th:block>

@@ -73,7 +73,7 @@ form {
 }
 
 @media screen and (max-width: 420px) {
-    .bi {
+    .action-icon {
         display: none;
     }
 }
