@@ -87,6 +87,7 @@ public class TodoController {
     // Open add todo form
     @GetMapping("/add")
     public String addTodo(Model model) {
+        model.addAttribute("title", "Add todo Page");
         model.addAttribute("newtodo", new NewTodoDTO());
         return "add";
     }
@@ -97,8 +98,6 @@ public class TodoController {
                                  BindingResult bindingResult,
                                  Model model,
                                  HttpServletRequest request) {
-
-        model.addAttribute("title", "Add todo Page");
         System.out.println("New ToDo data --> " + newTodoDTO);
 
         // Fetching currently logged in user
