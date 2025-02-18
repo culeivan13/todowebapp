@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.suraj.todo</groupId>
 	<artifactId>todowebapp</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.2</version>
 	<name>todowebapp</name>
 	<description>Full Stack ToDo List Application</description>
 	<url/>
