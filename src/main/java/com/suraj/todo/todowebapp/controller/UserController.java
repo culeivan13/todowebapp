@@ -2,8 +2,6 @@ package com.suraj.todo.todowebapp.controller;
 
 import com.suraj.todo.todowebapp.entity.ToDo;
 import com.suraj.todo.todowebapp.entity.User;
-import com.suraj.todo.todowebapp.repository.TodoRepository;
-import com.suraj.todo.todowebapp.repository.UserRepository;
 import com.suraj.todo.todowebapp.service.TodoService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private TodoRepository todoRepository;
-
     @Autowired
     private TodoService todoService;
 

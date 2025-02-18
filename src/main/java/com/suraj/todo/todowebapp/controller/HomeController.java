@@ -2,11 +2,10 @@ package com.suraj.todo.todowebapp.controller;
 
 import com.suraj.todo.todowebapp.entity.User;
 import com.suraj.todo.todowebapp.model.SignUpDTO;
-import com.suraj.todo.todowebapp.repository.UserRepository;
+import com.suraj.todo.todowebapp.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,11 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class HomeController {
-
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private PasswordEncoder bCryptPasswordEncoder;
+    private UserService userService;
 
     @GetMapping("/")
     public String getHomePage(Model model) {
@@ -36,7 +32,9 @@ public class HomeController {
     }
 
     @PostMapping("/process")
-    public String processSignup(@Valid @ModelAttribute("signupdto") SignUpDTO signUpDTO, BindingResult bindingResult, Model model) {
+    public String processSignup(@Valid @ModelAttribute("signupdto") SignUpDTO signUpDTO,
+                                BindingResult bindingResult,
+                                Model model) {
         System.out.println("signupdto --> " + signUpDTO);
 
         if (bindingResult.hasErrors()) {
@@ -44,14 +42,8 @@ public class HomeController {
             model.addAttribute("signupdto", signUpDTO);
             return "signup";
         } else {
-            User user = new User();
-            user.setName(signUpDTO.getName());
-            user.setEmail(signUpDTO.getEmail());
-            user.setPassword(bCryptPasswordEncoder.encode(signUpDTO.getPassword()));
-            user.setRole("ROLE_USER");
-
             try {
-                User savedUser = userRepository.save(user);
+                User savedUser = userService.saveUser(signUpDTO);
                 System.out.println("Saved User --> " + savedUser);
 
                 model.addAttribute("success", true);

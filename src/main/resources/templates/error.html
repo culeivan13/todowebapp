@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{fragments/head :: head}"></th:block>
+</head>
+<body>
+<div class="container-fluid text-center">
+    <h2 class="my-2">Error Occured!</h2>
+    <div class="fs-3 mb-3" th:text="${errorMsg} ?: 'Something went wrong'"></div>
+    <a th:href="@{/}">
+        <button class="btn btn-primary">Go Back</button>
+    </a>
+</div>
+</body>
+</html>
